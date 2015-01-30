@@ -23,32 +23,13 @@ clone https://github.com/onlyfu/logs
 
 <pre class="prettyprint linenums">
 excerpt_separator: "<!-s-more-->"
-这个是输出摘要的标示符
-如果使用做个方法需要把 index.html中
+#这个是输出摘要的标示符
+#如果使用做个方法需要把 index.html中
 {% raw %} {{ post.content | strip_html | truncate: 175 }} {% endraw %}
-修改为{% raw %} {{ post.excerpt }} <!--more-->{% endraw %}
-即以前的都会解析成html后输出
+修改为{% raw %} {{ post.excerpt }}{% endraw %}
+#即以前的都会解析成html后输出
 </pre>
 
-{% highlight yaml %}
-# Owner/author information
-owner:
-  name:           xingdao
-  des:            just so so.
-  email:          aoqiwlzj[at]gmail.com
-  github:         xingdao
-  disqus:         xingdaoblog
-{% endhighlight %}
-
-<pre class="prettyprint linenums">
-# Owner/author information
-owner:
-  name:           xingdao
-  des:            just so so.
-  email:          aoqiwlzj[at]gmail.com
-  github:         xingdao
-  disqus:         xingdaoblog
-</pre>
 
 请删除 CNAME,ico 和修改yml文件 
 
