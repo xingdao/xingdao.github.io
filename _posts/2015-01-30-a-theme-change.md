@@ -21,11 +21,11 @@ clone https://github.com/onlyfu/logs
 
 ##使用
 
-    excerpt_separator: "<!--more-->"
-    这个是输出摘要的标示符
-    如果使用做个方法需要把 index.html中
-    \{\{ post.content | strip_html | truncate: 175 \}\}
-    修改为 \{\{ post.excerpt \}\} 即<!--more-->以前的都会解析成html后输出
+excerpt_separator: "<!-s-more-->"
+这个是输出摘要的标示符
+如果使用做个方法需要把 index.html中
+\{\{ post.content | strip_html | truncate: 175 \}\}
+修改为 \{\{ post.excerpt \}\} 即<!--more-->以前的都会解析成html后输出
 
 
 请删除 cname,ico 和修改yml文件 
@@ -36,6 +36,7 @@ clone https://github.com/onlyfu/logs
 如果使用本主题 作为其他的用途请询问 @onlyfu 作者本人
 
 ##jekyll 特点
+
 ###简单
 不需要数据库，不需要评论功能，不需要不断的更新版本——只用关心你的博客内容
 
