@@ -27,12 +27,6 @@ clone https://github.com/onlyfu/logs
     \{\{ post.content | strip_html | truncate: 175 \}\}
     修改为 \{\{ post.excerpt \}\} 即<!--more-->以前的都会解析成html后输出
 
-
-<pre class="prettyprint lang-html linenums">
- &lt;script type="text/javascript" src="/js/run_prettify.js">&lt;/script&gt;
- &lt;link href="/css/sons-of-obsidian.css" rel="stylesheet"&gt;
-</pre>
-
 <pre class="prettyprint linenums">
  &lt;script type="text/javascript" src="/js/run_prettify.js">&lt;/script&gt;
  &lt;link href="/css/sons-of-obsidian.css" rel="stylesheet"&gt;
