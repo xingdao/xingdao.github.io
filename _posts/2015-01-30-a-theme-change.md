@@ -5,24 +5,30 @@ category: others
 keywords: Theme Github
 ---
 这是一个 jekyll的主题,直接修改 yml文件中的设置即可使用
+
 clone https://github.com/onlyfu/logs
+
 修改为 theme 去掉了 统计和分享代码
 
 ##目标 
 作为个人总的 Github代码和项目展示使用 
+
 去掉了seo优化和分享功能
+
 个人认为这个主题不适合做blog
+
 当然一切随意
 
 ##使用
-```yaml
-excerpt_separator: "<!--more-->"
-#这个是输出摘要的标示符
-#如果使用做个方法需要把 index.html中
-# {{ post.content | strip_html | truncate: 175 }}
-#修改为 {{ post.excerpt }} 即<!--more-->以前的都会解析成html后输出
-```
+
+    #excerpt_separator: "<!--more-->"
+    #这个是输出摘要的标示符
+    #如果使用做个方法需要把 index.html中
+    # {{ post.content | strip_html | truncate: 175 }}
+    #修改为 {{ post.excerpt }} 即<!--more-->以前的都会解析成html后输出
+
 请删除 cname,ico 和修改yml文件 
+
 文章随意处理 但保留请署名和保留链接 
 
 ##注意 
