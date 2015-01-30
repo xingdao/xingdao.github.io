@@ -201,6 +201,7 @@ h2.first_title a:hover {
   color: #666;
 }
 .index_lists .index_des {
+  height: 125px;
   border-top: 1px solid #fefefe;
   padding-top: 10px;
   color: #888;

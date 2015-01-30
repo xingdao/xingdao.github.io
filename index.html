@@ -15,14 +15,15 @@ title:
 			<a href="{{ site:url  }}{{ post.url  }}" target="_blank">{{post.title}}</a>
 		</h4>
 		<div class="index_des">
-			<div class="index_img">
 			{% if post.img %}
-				<img src="{{ site:url }}/images/{{ post.img }}" alt="" />
+				<div class="index_img">
+					<img src="{{ site:url }}/images/{{ post.img }}" alt="" />
+				{{ post.content | strip_html | truncate: 135 }}
+				</div>
 				{% else %}
 				<img src="{{ site:url }}/images/no.img" alt="" />
+				{{ post.content | strip_html | truncate: 165 }}
 			{% endif %}
-			</div>
-			{{ post.content | strip_html | truncate: 150 }}
 			<div class="blank10"></div>
 		</div>
 	</div>
