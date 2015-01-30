@@ -4,7 +4,7 @@ paginate: 10
 
 # site information
 title: Github notes
-#first_title: Show my code
+first_title: 查看我参与的项目
 
 # Owner/author information
 owner:
@@ -16,9 +16,7 @@ owner:
 
 # firend Links
 links:
-  - title: About
-    url: /about
-  - title: Theme
+  - title: Themme Source
     url: https://github.com/xingdao/xingdao.github.io
     external: true
   - title: 阮一峰的网络日志
