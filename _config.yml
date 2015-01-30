@@ -1,3 +1,32 @@
 baseurl: /
 url: http://xingdao.github.io
 paginate: 10
+
+# site information
+title: Github notes
+first_title: Show my code
+
+# Owner/author information
+owner:
+  name:           xingdao
+  des:            just so so.
+  email:          aoqiwlzj[at]gmail.com
+  github:         xingdao
+  disqus:         xingdaoblog
+
+# firend Links
+links:
+  - title: About
+    url: /about
+  - title: Theme
+    url: https://github.com/xingdao/xingdao.github.io
+    external:true
+  - title: 阮一峰的网络日志
+    url: http://www.ruanyifeng.com/blog/
+    external:true
+  - title: Matrix67: My Blog
+    url: http://www.matrix67.com/blog/
+    external:true
+  - title: 网易公开课
+    url: http://open.163.com/
+    external:true

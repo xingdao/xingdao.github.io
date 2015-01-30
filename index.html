@@ -3,9 +3,9 @@ layout: default
 title: 
 ---
 <h2 class="first_title">
-	<a href="{{ site:url  }}/code/">查看我的代码</a>
+	<a href="{{ site:url  }}/code/">{{ site:first_title }}</a>
 </h2>
-<p class="posted_info">xingdao的github记录</p>
+<p class="posted_info">{{ site:title }}</p>
 <div class="news">
 	<h3>日志数({{ paginator.total_posts}})</h3>
 	{% for post in paginator.posts %}

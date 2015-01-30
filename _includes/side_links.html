@@ -1,17 +1,9 @@
 <div class="side radius left">
-	<h2>链接(Links)</h2>
-	<ul class="side_ul">
-		<li>
-		<a href="https://github.com/xingdao/blog" target="_blank">Github本站代码</a>
-		</li>
-		<li>
-		<a href="http://www.ruanyifeng.com/blog/" target="_blank">阮一峰的网络日志</a>
-		</li>
-		<li>
-			<a href="http://www.matrix67.com/blog/" target="_blank">Matrix67: My Blog</a>
-		</li>
-		<li>
-			<a href="http://open.163.com/" target="_blank">网易公开课</a>
-		</li>
-	</ul>
+  <h2>链接(Links)</h2>
+  <ul class="side_ul">
+    {% for link in site.links %}
+	    <li><a href="{% if link.external %}{{ link.url }}{% else %}{{ site.url }}{{ link.url }}{% endif %}" {% if link.external %}target="_blank" {% endif %}>{{ link.title }}</a>
+	    </li>
+    {% endfor %}
+  </ul>
 </div>
