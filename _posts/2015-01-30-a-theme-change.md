@@ -24,7 +24,7 @@ clone https://github.com/onlyfu/logs
     excerpt_separator: "<!--more-->"
     这个是输出摘要的标示符
     如果使用做个方法需要把 index.html中
-    {{ post.content | strip_html | truncate: 175 }}
+    #{{ post.content | strip_html | truncate: 175 }}
     修改为 {{ post.excerpt }} 即<!--more-->以前的都会解析成html后输出
 
 
