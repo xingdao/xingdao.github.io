@@ -35,6 +35,15 @@ clone https://github.com/onlyfu/logs
 #修改为 {{ post.excerpt }} 即<!--more-->以前的都会解析成html后输出
 </pre>
 
+<pre class="prettyprint linenums">
+class Voila {
+public:
+  // Voila
+  static const string VOILA = "Voila";
+  // will not interfere with embedded tags.
+}
+</pre>
+
 
 请删除 cname,ico 和修改yml文件 
 
