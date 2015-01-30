@@ -8,9 +8,6 @@ body {
 img {
   border: 0px;
 }
-li {
-  list-style-type: decimal;
-}
 
 .left {
   float: left;
