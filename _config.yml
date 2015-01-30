@@ -2,6 +2,8 @@ baseurl: /
 url: http://xingdao.github.io
 paginate: 10
 
+excerpt_separator: "<!--more-->"
+
 # site information
 title: Github notes
 first_title: 查看我参与的项目
