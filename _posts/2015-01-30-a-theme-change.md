@@ -21,18 +21,24 @@ clone https://github.com/onlyfu/logs
 
 ##使用
 
-excerpt_separator: "<!-s-more-->"
-
-这个是输出摘要的标示符
-
-如果使用做个方法需要把 index.html中
-
-\{\{ post.content | strip_html | truncate: 175 \}\}
-
-修改为 \{\{ post.excerpt \}\} 即<!--more-->以前的都会解析成html后输出
+    excerpt_separator: "<!-s-more-->"
+    这个是输出摘要的标示符
+    如果使用做个方法需要把 index.html中
+    \{\{ post.content | strip_html | truncate: 175 \}\}
+    修改为 \{\{ post.excerpt \}\} 即<!--more-->以前的都会解析成html后输出
 
 
-请删除 cname,ico 和修改yml文件 
+<pre class="prettyprint lang-html linenums">
+ &lt;script type="text/javascript" src="/js/run_prettify.js">&lt;/script&gt;
+ &lt;link href="/css/sons-of-obsidian.css" rel="stylesheet"&gt;
+</pre>
+
+<pre class="prettyprint linenums">
+ &lt;script type="text/javascript" src="/js/run_prettify.js">&lt;/script&gt;
+ &lt;link href="/css/sons-of-obsidian.css" rel="stylesheet"&gt;
+</pre>
+
+请删除 CNAME,ico 和修改yml文件 
 
 文章随意处理 但保留请署名和保留链接 
 
