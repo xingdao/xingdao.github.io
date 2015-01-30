@@ -11,13 +11,10 @@ clone https://github.com/onlyfu/logs
 修改为 theme 去掉了 统计和分享代码
 
 ##目标 
-作为个人总的 Github代码和项目展示使用 
-
-去掉了seo优化和分享功能
-
-个人认为这个主题不适合做blog
-
-当然一切随意
+    作为个人总的Github代码和项目展示使用 
+    去掉了seo优化和分享功能
+    个人认为这个主题不适合做个人blog
+    当然一切随意
 
 ##使用
 
@@ -36,7 +33,7 @@ excerpt_separator: "<!-s-more-->"
 文章随意处理 但保留请署名和保留链接 
 
 ##注意 
-如果使用本主题 作为其他的用途请询问 @onlyfu 作者本人
+如果使用本主题 作为其他的用途请询问 [@onlyfu](https://github.com/onlyfu) 作者本人
 
 ##jekyll 特点
 
