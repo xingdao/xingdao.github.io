@@ -102,7 +102,7 @@ h2.first_title {
   height: 50px;
   line-height: 50px;
   border-bottom: 1px solid #ededed;
-  font-weight: 900px;
+  /*font-weight: 900px;*/
   overflow: hidden;
 }
 h2.first_title a {
@@ -260,7 +260,8 @@ h2.first_title a:hover {
   color: #009900;
 }
 .postbox {
-  width: 940px;
+  margin: auto;
+  width: 735px;
   padding: 10px 20px;
 }
 .post_links {
