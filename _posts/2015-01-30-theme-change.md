@@ -2,7 +2,7 @@
 layout: post
 title: Theme Change
 category: others
-keywords: Theme Github
+keywords: Theme
 ---
 这是一个 jekyll的主题,直接修改 yml文件中的设置即可使用
 
@@ -18,14 +18,29 @@ clone https://github.com/onlyfu/logs
 
 ##使用
 
+###摘要显示方式
 <pre class="prettyprint linenums">
 excerpt_separator: "<!-s-more-->"
 #这个是输出摘要的标示符
 #如果使用做个方法需要把 index.html中
 {% raw %} {{ post.content | strip_html | truncate: 175 }} {% endraw %}
 修改为{% raw %} {{ post.excerpt }}{% endraw %}
-#即以前的都会解析成html后输出
+#即"<!-s-more-->"以前的都会解析成html后输出
 </pre>
+
+###代码高亮方式
+    在需要高亮的地方 使用以下代码
+    <pre class="prettyprint linenums">
+    //code
+    </pre>
+
+为了的正常使用 我没有使用 
+
+    $(function() {
+      $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto');
+    });
+的方式
+
 
 
 请删除 CNAME,ico 和修改yml文件 
