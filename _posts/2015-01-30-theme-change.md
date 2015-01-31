@@ -34,13 +34,6 @@ excerpt_separator: "<!-s-more-->"
     //code
     </pre>
 
-为了的正常使用 我没有使用 
-
-    $(function() {
-      $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto');
-    });
-的方式
-
 ###分类
 添加新的分类时需要在 categorys 文件夹中添加新的 以类名开头的html文件 修改内容为
 
