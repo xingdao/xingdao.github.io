@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Theme Change
-category: others
+category: github
 keywords: Theme
 ---
 这是一个 jekyll的主题,直接修改 yml文件中的设置即可使用
@@ -41,7 +41,12 @@ excerpt_separator: "<!-s-more-->"
     });
 的方式
 
+###分类
+添加新的分类时需要在 categorys 文件夹中添加新的 以类名开头的html文件 修改内容为
 
+{% raw %} {% assign category_posts = site.categories.css %} {% endraw %}
+
+{% raw %} {% include category.html  %} {% endraw %}
 
 请删除 CNAME,ico 和修改yml文件 
 
