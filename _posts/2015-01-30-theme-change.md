@@ -6,10 +6,9 @@ keywords: Theme
 ---
 这是一个 jekyll的主题,直接修改 yml文件中的设置即可使用
 
-clone https://github.com/onlyfu/logs
-
 修改为 theme 去掉了 统计和分享代码
 
+clone form [onlyfu](https://github.com/onlyfu/logs)
 ##目标 
     作为个人总的Github代码和项目展示使用 
     去掉了seo优化和分享功能
