@@ -261,8 +261,8 @@ h2.first_title a:hover {
 }
 .postbox {
   margin: auto;
-  width: 735px;
-  padding: 10px 20px;
+  width: 960px;
+  padding: 10px;
 }
 .post_links {
   background-color: #ededed;
