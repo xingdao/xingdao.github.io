@@ -33,7 +33,7 @@ img {
   height: 20px;
 }
 .wrap {
-  width: 980px;
+  width: 880px;
   margin: 0 auto;
 }
 .header {
@@ -261,7 +261,7 @@ h2.first_title a:hover {
 }
 .postbox {
   margin: auto;
-  width: 960px;
+  width: 860px;
   padding: 10px;
 }
 .post_links {
