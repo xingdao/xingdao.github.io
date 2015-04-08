@@ -6,7 +6,9 @@
     <p class="posted_info">
       posted by {{ site.owner.name }} on {{ page.date | date:"%Y-%m-%d" }} 分类: <a href="{{ site:url }}/categorys/{{ page.category }}.html">{{ page.category }}</a>
     </p>
-    <div class="postcontent"> {{ content}} </div> 
+    <div class="postcontent">
+      {{ content}}
+    </div>
     <div class="likepost">
       <h2>相关文章</h2>
       <ul>
