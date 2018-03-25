@@ -5,8 +5,6 @@ category: Python
 keywords: Python, decorator
 ---
 
-### 
-
 #### 介绍
 
 	配合Passing, 使用的大量手脚架
@@ -18,8 +16,8 @@ keywords: Python, decorator
 
 #### 代码
 
+<pre class="prettyprint linenums">
 
-```python
 # coding=utf-8
 
 import time
@@ -128,9 +126,9 @@ class DictModel(dict):
         self[key] = value
 
 ```
-
+</pre>
 
 ### 参考
 
-[Python3-cookbook](http://python3-cookbook.readthedocs.io/zh_CN/latest/)
-[Python Tips](http://tips.pyhub.cc/zh/latest/)
+- [Python3-cookbook](http://python3-cookbook.readthedocs.io/zh_CN/latest/)
+- [Python Tips](http://tips.pyhub.cc/zh/latest/)

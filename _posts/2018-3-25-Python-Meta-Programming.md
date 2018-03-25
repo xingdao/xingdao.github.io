@@ -21,7 +21,7 @@ keywords: Python, meta, Flask
 #### 代码
 
 
-```python
+<pre class="prettyprint linenums">
 # coding=utf-8
 
 """
@@ -133,7 +133,7 @@ if __name__ == '__main__':
 
     # 直接把 View注册到 Flask,中通过Flask自带路由来执行
     print(View.get(1, '2'))
-```
+</pre>
 
 
 #### 注意
@@ -144,5 +144,5 @@ if __name__ == '__main__':
 
 ### 参考
 
-[Python3-cookbook](http://python3-cookbook.readthedocs.io/zh_CN/latest/)
-[Python Tips](http://tips.pyhub.cc/zh/latest/)
+- [Python3-cookbook](http://python3-cookbook.readthedocs.io/zh_CN/latest/)
+- [Python Tips](http://tips.pyhub.cc/zh/latest/)

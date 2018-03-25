@@ -8,7 +8,8 @@ keywords: Python,Reptile
 
 [github](https://github.com/xingdao/py_test)
 
-#sing
+## sing
+
     #同学的数据库作业,数据来源 
     搜狗音乐top榜单
     通用版
@@ -17,7 +18,8 @@ keywords: Python,Reptile
     #因为第一次写用的C的思想... 后感觉要全部重新来过
 
 
-#zhihu
+## zhihu
+
     相关话题推荐
     不完整
         不能获取全部的问题树 那时不会josn解析
@@ -26,12 +28,14 @@ keywords: Python,Reptile
     python ./zhihu_gui.py
 
 
-#5sing download
+## 5sing download
+
     获取指定人的关注列表
     下载指定人的全部歌曲可分类下载
     尝试解析 json中 未完成全部的功能 暂未上线
 
-#vote
+## vote
+
     刷票练习 失败作品
     开始没有验证码 成功
     后添加了验证码验证,第一次写Python的图形功能
