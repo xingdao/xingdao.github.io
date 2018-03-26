@@ -125,7 +125,6 @@ class DictModel(dict):
     def __setattr__(self, key, value):
         self[key] = value
 
-```
 </pre>
 
 ### 参考
