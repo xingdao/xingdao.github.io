@@ -23,6 +23,7 @@ keywords: Python, meta, Orm, mixins
 
 <pre class="prettyprint linenums">
 # coding=utf-8
+import pymysql
 from functools import wraps
 
 
@@ -41,33 +42,34 @@ class MetaModel(type):
         handler = tpls.get('handler', cls._handler)
         description = tpls.get('description', '')
 
-        def collect_exception():
-            def decorator(real_func):
-                @wraps(real_func)
-                def wrapper(*real_args, **real_kwargs):
-                    try:
-                        if len(real_kwargs) == 1 and 'where_list' in real_kwargs.keys():
-                            # 外部拼接的 where 直接传入
-                            last_result = real_func(*real_args, where_list=real_kwargs['where_list'], kwargs={})
-                        else:
-                            # 转换 where 语句
-                            where_list = []
-                            for k in real_kwargs.keys():
-                                if isinstance(real_kwargs[k], list) and str(real_kwargs[k][0]).isdigit():
-                                    where_list.append('`%s` IN (%s)' % (k, ','.join([str(x) for x in real_kwargs[k]])))
-                                elif isinstance(real_kwargs[k], list) and not str(real_kwargs[k][0]).isdigit():
-                                    where_list.append('`%s` IN (%s)' %
-                                                      (k, ','.join(['"%s"' % str(x) for x in real_kwargs[k]])))
-                                else:
-                                    where_list.append('`%s`=:%s' % (k, k))
-                            last_result = real_func(*real_args, where_list=where_list, kwargs=real_kwargs)
-                        return last_result
-                    except Exception as e:
-                        return handler(cls, e, description, real_func.__doc__, *real_args, **real_kwargs)
+        def collect_exception(real_func):
+            @wraps(real_func)
+            def wrapper(*real_args, **real_kwargs):
+                try:
+                    if len(real_kwargs) == 1 and 'where_list' in real_kwargs.keys():
+                        # 外部拼接的 where 直接传入
+                        last_result = real_func(*real_args, where_list=real_kwargs['where_list'], kwargs={})
+                    else:
+                        # 转换 where 语句
+                        where_list = []
+                        for k in real_kwargs.keys():
+                            # 查找 filed in ()
+                            if isinstance(real_kwargs[k], list) and not real_kwargs[k]:
+                                where_list = ["id=-1"]
+                                break
+                            elif isinstance(real_kwargs[k], list) and str(real_kwargs[k][0]).isdigit():
+                                where_list.append('`%s` IN (%s)' % (k, ','.join([str(x) for x in real_kwargs[k]])))
+                            elif isinstance(real_kwargs[k], list) and not str(real_kwargs[k][0]).isdigit():
+                                where_list.append('`%s` IN (%s)' %
+                                                  (k, ','.join(['"%s"' % str(x) for x in real_kwargs[k]])))
+                            else:
+                                where_list.append("`%s`='%s'" % (k, real_kwargs[k]))
+                        last_result = real_func(*real_args, where_list=where_list, kwargs=real_kwargs)
+                    return last_result
+                except Exception as e:
+                    return handler(cls, e, description, real_func.__doc__, *real_args, **real_kwargs)
 
-                return wrapper
-
-            return decorator
+            return wrapper
 
         def fetch_fields(cursor):
             # 获取表全部字段
@@ -78,7 +80,7 @@ class MetaModel(type):
             except Exception as e:
                 raise MouldingError('moulding %s failure: %s' % (table, str(e)))
 
-        @collect_exception()
+        @collect_exception
         def query_one(cursor, where_list, kwargs):
             """获取一个"""
             command = 'SELECT * FROM %s' % table
@@ -88,7 +90,7 @@ class MetaModel(type):
             result = cursor.query_one(command, kwargs)
             return result if result else {}
 
-        @collect_exception()
+        @collect_exception
         def query(cursor, where_list, kwargs):
             """获取列表"""
             command = 'SELECT * FROM %s' % table
@@ -98,7 +100,7 @@ class MetaModel(type):
             result = cursor.query(command, kwargs)
             return result if result else []
 
-        @collect_exception()
+        @collect_exception
         def query_exists(cursor, where_list, kwargs):
             """是否存在"""
             command = 'SELECT * FROM %s' % table
@@ -109,7 +111,7 @@ class MetaModel(type):
             result = cursor.query(command, kwargs)
             return result[0]['exist'] if result else 0
 
-        @collect_exception()
+        @collect_exception
         def query_count(cursor, where_list, kwargs):
             """统计数量"""
             command = 'SELECT COUNT(1) as count FROM %s' % table
@@ -119,7 +121,7 @@ class MetaModel(type):
             result = cursor.query_one(command, kwargs)
             return result['count'] if result else 0
 
-        @collect_exception()
+        @collect_exception
         def query_paging(cursor, index, count, order_by, where_list, kwargs):
             """分页列表"""
             command = 'SELECT * FROM %s' % table
@@ -130,7 +132,7 @@ class MetaModel(type):
             result = cursor.query(command, kwargs)
             return result if result else []
 
-        @collect_exception()
+        @collect_exception
         def delete(cursor, where_list, kwargs):
             """删除"""
             command = 'DELETE FROM %s' % table
@@ -141,7 +143,7 @@ class MetaModel(type):
             print(command)
             return cursor.delete(command, kwargs)
 
-        @collect_exception()
+        @collect_exception
         def update(cursor, fields, where_list, kwargs):
             """更新"""
             if not fields or not where_list:
@@ -178,9 +180,15 @@ class MetaModel(type):
             command = '''INSERT INTO {table} ({fields}) VALUES ({values})'''\
                 .format(table=table,
                         fields=','.join(['`%s`' % v for v in fields]),
-                        values=','.join([':%s' % v for v in fields]))
+                        values=','.join(["'%s'" % values[v] for v in fields]))
             print(command)
-            return cursor.insert(command, values)
+            return cursor.insert(command, {})
+
+        # check overwrite or not
+        for x in ['query_one', 'query', 'query_count', 'query_count', 'query_exists', 'query_paging', 'delete',
+                  'update', 'insert']:
+            if x in tpls.keys():
+                raise ValueError('%s.%s is overwrite' % (name, x))
 
         tpls['query_one'] = staticmethod(query_one)
         tpls['query'] = staticmethod(query)
@@ -194,19 +202,15 @@ class MetaModel(type):
 
 
 if __name__ == '__main__':
-
     import db
 
 
     class BaseModel(metaclass=MetaModel):
-
-        def handler(self, e, description, doc, *args, **kwargs):
-            print([description, doc, args, kwargs])
-            raise e
+        pass
 
 
     class ReadORMModel(object):
-        # 用于欺骗编译器, 也可通过pyi的方式
+
         @staticmethod
         def query_one(cursor, **payload):
             return {}
@@ -229,7 +233,7 @@ if __name__ == '__main__':
 
 
     class WriteORMModel(object):
-        # 用于欺骗编译器, 也可通过pyi的方式
+
         @staticmethod
         def delete(cursor, **payload):
             return 1
@@ -247,20 +251,25 @@ if __name__ == '__main__':
         table = 'shx_locks'
         description = "锁"
 
-
-    reader = db.MySQLdb({
-        # 自己填
+        def handler(self, e, description, doc, *args, **kwargs):
+            print([description, doc, args, kwargs])
+            raise e
+    reader = db.MySQLdb(**{
+        "port": 3306,
+        "host": "localhost",
+        "database": "db",
+        "password": "passwd",
+        "user": "user",
+        "charset": "utf8mb4",
+        "cursorclass": pymysql.cursors.DictCursor
     })
-
     LockModel.delete(reader, where_list=["1=1"])
 
-    the_id = LockModel.insert(reader, [
-        {
+    the_id = LockModel.insert(reader, {
             'type': 0,
             'lock_code': 'vvv',
             'create_time': 0,
-        }
-    ])
+    })
     assert isinstance(the_id, int)
     print("insert %s" % the_id)
     print(LockModel.query_one(reader, where_list=["id=%s" % the_id]))

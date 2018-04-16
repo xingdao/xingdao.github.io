@@ -23,11 +23,11 @@ keywords: Python, meta, Orm, mixins
 <pre class="prettyprint linenums">
 # coding=utf-8
 from server.database import db
-from server.status import NoCoupon
-from server.meta.decorators import make_passing, Passing
+from server.status import message
+from server.util.decorators import make_passing, Passing
 
 
-class MetaOperation(type):
+class __MetaOperation(type):
 
     def __new__(cls, name, bases, tpls):
         model = tpls.get('model', '')
@@ -36,7 +36,7 @@ class MetaOperation(type):
         def query_page(index, count, params):
             data = model.query_paging(db.reader, index, count, 'id desc', **params)
             if not data:
-                raise NoCoupon
+                return message.EmptyOldList
             total = model.query_count(db.reader, **params)
             return Passing(data=data, index=index, count=count, total=total)
 
@@ -54,20 +54,21 @@ class MetaOperation(type):
             res = model.insert(db.writer, payload)
             if res:
                 return Passing(data={'id': res})
-            raise CouponError('编辑错误')
+            else:
+                return message.DataEditError
 
         @make_passing
         def update_one(_id, payload):
             data = model.update(db.writer, payload, id=_id)
             if data:
                 return Passing(data=model.query_one(db.reader, id=_id))
-            raise CouponError('编辑错误')
+            else:
+                return message.DataEditError
 
-        tpls['query_page'] = staticmethod(query_page)
-        tpls['query'] = staticmethod(query)
-        tpls['query_one'] = staticmethod(query_one)
-        tpls['insert'] = staticmethod(insert)
-        tpls['update_one'] = staticmethod(update_one)
+        # 如果 子类重写, 使用子类
+        for x in [query_page, query, query_one, insert, update_one]:
+            if str(x.__name__) not in tpls.keys():
+                tpls[str(x.__name__)] = staticmethod(x)
         return super().__new__(cls, name, bases, tpls)
 
 
@@ -76,16 +77,19 @@ class ReadOperation(object):
     虚拟的只读类,在多继承 时欺骗编译器
     """
     @staticmethod
+    @make_passing
     def query_page(index, count, params):
-        pass
+        raise TypeError()
 
     @staticmethod
+    @make_passing
     def query(params):
-        pass
+        raise TypeError()
 
     @staticmethod
+    @make_passing
     def query_one(_id):
-        pass
+        raise TypeError()
 
 
 class WriteOperation(object):
@@ -93,16 +97,19 @@ class WriteOperation(object):
     虚拟的写入类,在多继承 时欺骗编译器
     """
     @staticmethod
+    @make_passing
     def update_one(_id, payload):
-        pass
+        raise TypeError()
 
     @staticmethod
+    @make_passing
     def insert(payload):
-        pass
+        raise TypeError()
 
 
-class BaseOperation(metaclass=MetaOperation):
+class BaseOperation(metaclass=__MetaOperation):
     pass
+
 
 
 </pre>

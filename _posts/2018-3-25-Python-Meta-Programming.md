@@ -78,13 +78,13 @@ def __check_params(restrictions, values, next_func, params):
             raise PassingParameterError('{key} must be a {typ}'.
                                         format(key=k, typ=restrictions[k].__name__))
         next_params[k] = value
-    # 可能覆盖安全检查, 如果需要. 改写这部分, 强制对每个参数进行检查
     next_params.update(values)
     return next_params
 
 
 def make_passing(next_func=None):
 
+    @wraps(next_func)
     def input_params(**params):
         # print('params %s' % params)
         restrictions, values = __collect_prevfunc_params(**params)
@@ -107,8 +107,6 @@ def make_passing(next_func=None):
 
 
 if __name__ == '__main__':
-    import time
-    import logging
 
     class A(object):
 
@@ -123,16 +121,14 @@ if __name__ == '__main__':
             return {'c': c, 'b': b}
 
 
-    class View(object):
-
+    class B(object):
         @staticmethod
         @A.a2(c=int, b=str)
         @A.a1(c=int, b=str)
-        def get(c, b):
+        def start(c, b):
             return Passing(c=c, b=b)
 
-    # 直接把 View注册到 Flask,中通过Flask自带路由来执行
-    print(View.get(1, '2'))
+    print(B.start(1, '2'))
 </pre>
 
 
