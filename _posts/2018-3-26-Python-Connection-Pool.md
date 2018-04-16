@@ -267,4 +267,5 @@ class RPCClient(object):
 
 ### 参考
 
-    [from rest_framework import mixins](http://www.django-rest-framework.org/tutorial/3-class-based-views/)
+- [完整Demo](https://github.com/xingdao/py_test/tree/master/flask)
+- [from rest_framework import mixins](http://www.django-rest-framework.org/tutorial/3-class-based-views/)
