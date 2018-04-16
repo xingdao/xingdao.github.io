@@ -128,6 +128,6 @@ class DictModel(dict):
 </pre>
 
 ### 参考
-
+- [完整Demo](https://github.com/xingdao/py_test/tree/master/flask)
 - [Python3-cookbook](http://python3-cookbook.readthedocs.io/zh_CN/latest/)
 - [Python Tips](http://tips.pyhub.cc/zh/latest/)
