@@ -28,6 +28,12 @@ keywords: Python, meta, Flask
 注意装饰器在 初始化时即执行
 """
 
+# coding=utf-8
+
+"""
+注意装饰器在 初始化时即执行
+"""
+import traceback
 from functools import wraps
 
 
@@ -66,23 +72,26 @@ def __collect_prevfunc_params(**params):
     return restrictions, values
 
 
-def __check_params(restrictions, values, next_func, params):
+def __check_params(restrictions, values, next_func, func_file, params):
     # 检查参数是否符合类型限制
     next_params = {}
     for k in restrictions:
         value = params.get(k, None)
         if value is None:
-            raise PassingCalledError("{func_name} missing 1 required positional argument: {key}".
-                                     format(func_name=next_func.__name__, key=k))
+            raise PassingCalledError("{func_file} {func_name} missing 1 required positional argument: {key}".
+                                     format(func_file=func_file, func_name=next_func.__name__, key=k))
         if not isinstance(value, restrictions[k]):
-            raise PassingParameterError('{key} must be a {typ}'.
-                                        format(key=k, typ=restrictions[k].__name__))
+            raise PassingParameterError('{func_file} {func_name} {key} must be a {typ}'.
+                                        format(func_file=func_file, func_name=next_func.__name__,
+                                               key=k, typ=restrictions[k].__name__))
         next_params[k] = value
     next_params.update(values)
     return next_params
 
 
 def make_passing(next_func=None):
+    # 获取装饰函数的真实位置
+    _info = traceback.format_stack()[0].strip()
 
     @wraps(next_func)
     def input_params(**params):
@@ -95,7 +104,7 @@ def make_passing(next_func=None):
                 resp = real_func(*real_args, **real_kwargs)
                 # 只装饰 类型为 Passing 的返回值进行下一次调用
                 if isinstance(resp, Passing):
-                    return next_func(**__check_params(restrictions, values, next_func, resp))
+                    return next_func(**__check_params(restrictions, values, next_func, _info, resp))
                 else:
                     return resp
 
@@ -123,7 +132,7 @@ if __name__ == '__main__':
 
     class B(object):
         @staticmethod
-        @A.a2(c=int, b=str)
+        @A.a2(c=int, b=int)
         @A.a1(c=int, b=str)
         def start(c, b):
             return Passing(c=c, b=b)
